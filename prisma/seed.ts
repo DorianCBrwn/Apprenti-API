@@ -1,56 +1,35 @@
 import { db } from "../src/utils/db.server";
+import { faker } from "@faker-js/faker";
 
-type Role = {
+type department = {
   name: string;
   description: string;
 };
 
 type User = {
-  email: string;
+  fullName: string;
+  username: string;
+  role: string;
   password: string;
   firstName: string;
   lastName: string;
   DateOfBirth: Date;
+  OrganizationRecord;
 };
 
-function getUsers(): User[] {
-  return [
-    {
-      email: "test@gmail.com",
-      password: "testPassword",
-      firstName: "Test",
-      lastName: "Mctest",
-      DateOfBirth: new Date(1990, 1, 1),
-    },
-    {
-      email: "user2",
-      password: "user2Password",
-      firstName: "User2",
-      lastName: "Mcuser2",
-      DateOfBirth: new Date(1990, 1, 1),
-    },
-    {
-      email: "user3",
-      password: "user3Password",
-      firstName: "User3",
-      lastName: "Mcuser3",
-      DateOfBirth: new Date(1990, 1, 1),
-    },
-    {
-      email: "user4",
-      password: "user4Password",
-      firstName: "User4",
-      lastName: "Mcuser4",
-      DateOfBirth: new Date(1990, 1, 1),
-    },
-    {
-      email: "user5",
-      password: "user5Password",
-      firstName: "User5",
-      lastName: "Mcuser5",
-      DateOfBirth: new Date(1990, 1, 1),
-    },
-  ];
+export async function createUsers(): Promise<User> {
+  const firstName = faker.name.firstName();
+  const lastName = faker.name.lastName();
+  const email = faker.internet.email();
+  const password = faker.internet.password();
+  const DateOfBirth = faker.date.past();
+
+  return {
+    fullName: `${firstName} ${lastName}`,
+    lastName,
+    password,
+    DateOfBirth,
+  };
 }
 
 function getRoles(): Role[] {
