@@ -7,7 +7,7 @@ type User = {
   email: string;
   password: string;
   DateOfBirth: Date;
-  role: string;
+  role: Role;
 };
 
 export const listUsers = async (): Promise<User[]> => {
